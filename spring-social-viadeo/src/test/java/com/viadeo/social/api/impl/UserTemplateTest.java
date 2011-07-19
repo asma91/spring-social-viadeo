@@ -10,15 +10,14 @@ import static org.springframework.social.test.client.ResponseCreators.withRespon
 import java.util.List;
 
 import org.junit.Test;
+import org.springframework.social.NotAuthorizedException;
 import org.springframework.social.support.URIBuilder;
 
 import com.viadeo.social.api.Experience;
-import com.viadeo.social.api.Job;
 import com.viadeo.social.api.News;
 import com.viadeo.social.api.ViadeoProfile;
 
 public class UserTemplateTest extends AbstractViadeoApiTest {
-
 
 	@Test
 	public void getCurrentUser() {
@@ -42,6 +41,11 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertEquals("Ingénieur d'études et de développement, Viadeo", profile
 				.getHeadline());
 		mockServer.verify();
+	}
+
+	@Test(expected = NotAuthorizedException.class)
+	public void getCurrentUser_unauthorized() {
+		unauthorizedViadeo.userOperations().getUserProfile();
 	}
 
 	@Test
@@ -86,6 +90,11 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		mockServer.verify();
 	}
 
+	@Test(expected = NotAuthorizedException.class)
+	public void getCurrentContacts_unauthorized() {
+		unauthorizedViadeo.userOperations().getContacts();
+	}
+
 	@Test
 	public void getContactsForId() {
 		mockServer
@@ -125,6 +134,11 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		mockServer.verify();
 	}
 
+	@Test(expected = NotAuthorizedException.class)
+	public void getCurrentNewsFeed_unauthorized() {
+		unauthorizedViadeo.userOperations().getNewsFeed();
+	}
+
 	@Test
 	public void getNewsFeedForId() {
 		mockServer
@@ -159,6 +173,11 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertNotNull(experiences);
 		assertEquals(6, experiences.size());
 		mockServer.verify();
+	}
+
+	@Test(expected = NotAuthorizedException.class)
+	public void getCurrentExperiences_unauthorized() {
+		unauthorizedViadeo.userOperations().getExperiences();
 	}
 
 	@Test

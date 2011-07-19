@@ -1,7 +1,9 @@
-package com.viadeo.social.api;
+package com.viadeo.social.api.impl;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.viadeo.social.api.News;
 
 public class Feed implements Serializable{
 

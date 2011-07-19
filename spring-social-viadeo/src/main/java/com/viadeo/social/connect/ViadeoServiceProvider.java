@@ -3,11 +3,11 @@ package com.viadeo.social.connect;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.oauth2.OAuth2Template;
 
-import com.viadeo.social.api.ViadeoApi;
+import com.viadeo.social.api.Viadeo;
 import com.viadeo.social.api.impl.ViadeoTemplate;
 
 public final class ViadeoServiceProvider extends
-		AbstractOAuth2ServiceProvider<ViadeoApi> {
+		AbstractOAuth2ServiceProvider<Viadeo> {
 
 	public ViadeoServiceProvider(String clientId, String clientSecret) {
 		super(new OAuth2Template(clientId, clientSecret,
@@ -16,7 +16,7 @@ public final class ViadeoServiceProvider extends
 	}
 
 	@Override
-	public ViadeoApi getApi(String accessToken) {
+	public Viadeo getApi(String accessToken) {
 		return new ViadeoTemplate(accessToken);
 	}
 

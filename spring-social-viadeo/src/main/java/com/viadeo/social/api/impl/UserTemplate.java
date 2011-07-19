@@ -7,15 +7,13 @@ import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
 import com.viadeo.social.api.Career;
-import com.viadeo.social.api.Contacts;
 import com.viadeo.social.api.Experience;
-import com.viadeo.social.api.Feed;
 import com.viadeo.social.api.GraphApi;
 import com.viadeo.social.api.News;
 import com.viadeo.social.api.UserOperations;
 import com.viadeo.social.api.ViadeoProfile;
 
-public class UserTemplate implements UserOperations {
+public class UserTemplate extends AbstractViadeoOperations implements UserOperations {
 
 	private static final String FULL = "full";
 
@@ -27,12 +25,14 @@ public class UserTemplate implements UserOperations {
 
 	private final RestTemplate restTemplate;
 
-	public UserTemplate(GraphApi graphApi, RestTemplate restTemplate) {
+	public UserTemplate(GraphApi graphApi, RestTemplate restTemplate, boolean isAuthorizedForUser) {
+		super(isAuthorizedForUser);
 		this.graphApi = graphApi;
 		this.restTemplate = restTemplate;
 	}
 
 	public ViadeoProfile getUserProfile() {
+		requireAuthorization();
 		return getUserProfile(ME);
 	}
 
@@ -41,6 +41,7 @@ public class UserTemplate implements UserOperations {
 	}
 
 	public List<ViadeoProfile> getContacts() {
+		requireAuthorization();
 		return getContacts(ME);
 	}
 
@@ -52,6 +53,7 @@ public class UserTemplate implements UserOperations {
 	}
 
 	public List<News> getNewsFeed() {
+		requireAuthorization();
 		return getNewsFeed(ME);
 	}
 
@@ -64,6 +66,7 @@ public class UserTemplate implements UserOperations {
 	}
 
 	public List<Experience> getExperiences() {
+		requireAuthorization();
 		return getExperiences(ME);
 	}
 

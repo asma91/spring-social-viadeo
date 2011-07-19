@@ -3,6 +3,9 @@ package com.viadeo.social.api;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Model class representing a comment.
+ */
 public class Comment implements Serializable{
 
 	/**
