@@ -12,7 +12,7 @@ import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.ResourceAccessException;
 
-import com.viadeo.social.api.ConnectionsOperations;
+import com.viadeo.social.api.JobOperations;
 import com.viadeo.social.api.GraphAPIException;
 import com.viadeo.social.api.UserOperations;
 import com.viadeo.social.api.ViadeoApi;
@@ -23,7 +23,7 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements
 
 	private UserOperations userOperations;
 
-	private ConnectionsOperations connectionsOperations;
+	private JobOperations jobOperations;
 
 	/**
 	 * Create a new instance of ViadeoTemplate. This constructor creates the
@@ -41,6 +41,7 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements
 
 		// sub-apis
 		userOperations = new UserTemplate(this, getRestTemplate());
+		jobOperations = new JobTemplate(this, getRestTemplate());
 	}
 
 	private void registerViadeoModule() {
@@ -79,8 +80,8 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements
 		return userOperations;
 	}
 
-	public ConnectionsOperations getConnectionsOperations() {
-		return connectionsOperations;
+	public JobOperations jobOperations() {
+		return jobOperations;
 	}
 
 }
