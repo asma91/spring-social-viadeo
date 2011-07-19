@@ -12,10 +12,13 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.social.support.URIBuilder;
 
+import com.viadeo.social.api.Experience;
+import com.viadeo.social.api.Job;
 import com.viadeo.social.api.News;
 import com.viadeo.social.api.ViadeoProfile;
 
 public class UserTemplateTest extends AbstractViadeoApiTest {
+
 
 	@Test
 	public void getCurrentUser() {
@@ -108,7 +111,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 				.expect(
 						requestTo(URIBuilder
 								.fromUri(
-										"https://api.viadeo.com/me/home_newsfeed?user_detail=full")
+										"https://api.viadeo.com/me/home_newsfeed?user_detail=full&limit=50")
 								.build()))
 				.andExpect(method(GET))
 				.andRespond(
@@ -128,7 +131,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 				.expect(
 						requestTo(URIBuilder
 								.fromUri(
-										"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/home_newsfeed?user_detail=full")
+										"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/home_newsfeed?user_detail=full&limit=50")
 								.build()))
 				.andExpect(method(GET))
 				.andRespond(
@@ -140,6 +143,39 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 				"EjtftevbyiugaIfDfVizDgymxg");
 		assertNotNull(news);
 		assertEquals(10, news.size());
+		mockServer.verify();
+	}
+
+	@Test
+	public void getCurrentExperiences() {
+		mockServer.expect(
+				requestTo(URIBuilder.fromUri(
+						"https://api.viadeo.com/me/career?user_detail=full")
+						.build())).andExpect(method(GET)).andRespond(
+				withResponse(jsonResource("testdata/career-for-me"),
+						responseHeaders));
+
+		List<Experience> experiences = viadeo.userOperations().getExperiences();
+		assertNotNull(experiences);
+		assertEquals(6, experiences.size());
+		mockServer.verify();
+	}
+
+	@Test
+	public void getExperiencesForId() {
+		mockServer
+				.expect(
+						requestTo(URIBuilder
+								.fromUri(
+										"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/career?user_detail=full")
+								.build())).andExpect(method(GET)).andRespond(
+						withResponse(jsonResource("testdata/career-for-id"),
+								responseHeaders));
+
+		List<Experience> experiences = viadeo.userOperations().getExperiences(
+				"EjtftevbyiugaIfDfVizDgymxg");
+		assertNotNull(experiences);
+		assertEquals(6, experiences.size());
 		mockServer.verify();
 	}
 }

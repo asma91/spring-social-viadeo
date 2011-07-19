@@ -52,4 +52,19 @@ public interface UserOperations {
 	 */
 	List<News> getNewsFeed(String userId);
 
+	/**
+	 * Retrieves experiences for a given user.
+	 * 
+	 * @return
+	 */
+	List<Experience> getExperiences();
+
+	/**
+	 * Retrieves experiences for the authenticated user.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<Experience> getExperiences(String userId);
+
 }

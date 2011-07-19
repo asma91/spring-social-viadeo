@@ -2,6 +2,7 @@ package com.viadeo.social.api;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Model class representing an entry in a feed.
@@ -22,6 +23,8 @@ public class News implements Serializable {
 	private final Date creationDate;
 
 	private final Date updatedDate;
+	
+	private Comments comments;
 
 	public News(String id, String message, ViadeoProfile from,
 			Date creationDate, Date updatedDate) {
@@ -52,4 +55,11 @@ public class News implements Serializable {
 		return updatedDate;
 	}
 
+	public Comments getComments() {
+		return comments;
+	}
+
+	public void setComments(Comments comments) {
+		this.comments = comments;
+	}
 }
