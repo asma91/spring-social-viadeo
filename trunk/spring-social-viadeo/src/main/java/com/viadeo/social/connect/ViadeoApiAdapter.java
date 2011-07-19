@@ -6,12 +6,12 @@ import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.viadeo.social.api.ViadeoApi;
+import com.viadeo.social.api.Viadeo;
 import com.viadeo.social.api.ViadeoProfile;
 
-public class ViadeoApiAdapter implements ApiAdapter<ViadeoApi> {
+public class ViadeoApiAdapter implements ApiAdapter<Viadeo> {
 
-	public boolean test(ViadeoApi viadeo) {
+	public boolean test(Viadeo viadeo) {
 		try {
 			viadeo.userOperations().getUserProfile();
 			return true;
@@ -20,7 +20,7 @@ public class ViadeoApiAdapter implements ApiAdapter<ViadeoApi> {
 		}
 	}
 
-	public void setConnectionValues(ViadeoApi viadeo, ConnectionValues values) {
+	public void setConnectionValues(Viadeo viadeo, ConnectionValues values) {
 		ViadeoProfile profile = viadeo.userOperations().getUserProfile();
 		values.setProviderUserId(profile.getId());
 		values.setDisplayName(profile.getFirstName() + " "
@@ -29,7 +29,7 @@ public class ViadeoApiAdapter implements ApiAdapter<ViadeoApi> {
 		values.setProfileUrl(profile.getProfileUrl());
 	}
 
-	public UserProfile fetchUserProfile(ViadeoApi viadeo) {
+	public UserProfile fetchUserProfile(Viadeo viadeo) {
 		ViadeoProfile profile = viadeo.userOperations().getUserProfile();
 		return new UserProfileBuilder().setName(
 				profile.getFirstName() + " " + profile.getLastName())
@@ -38,7 +38,7 @@ public class ViadeoApiAdapter implements ApiAdapter<ViadeoApi> {
 						profile.getNickName()).build();
 	}
 
-	public void updateStatus(ViadeoApi viadeo, String message) {
+	public void updateStatus(Viadeo viadeo, String message) {
 		// not supported yet
 	}
 }

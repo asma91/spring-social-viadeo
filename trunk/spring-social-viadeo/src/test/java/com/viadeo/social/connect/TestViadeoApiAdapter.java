@@ -12,7 +12,7 @@ import org.unitils.easymock.EasyMockUnitils;
 import org.unitils.easymock.annotation.RegularMock;
 
 import com.viadeo.social.api.UserOperations;
-import com.viadeo.social.api.ViadeoApi;
+import com.viadeo.social.api.Viadeo;
 import com.viadeo.social.api.ViadeoProfile;
 
 public class TestViadeoApiAdapter extends UnitilsJUnit4{
@@ -20,7 +20,7 @@ public class TestViadeoApiAdapter extends UnitilsJUnit4{
 		private ViadeoApiAdapter apiAdapter = new ViadeoApiAdapter();
 
 		@RegularMock
-		private ViadeoApi viadeoApi;
+		private Viadeo viadeoApi;
 		
 		@RegularMock
 		private UserOperations profileOperations;

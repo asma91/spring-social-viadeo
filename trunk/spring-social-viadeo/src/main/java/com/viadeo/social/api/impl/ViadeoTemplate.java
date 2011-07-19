@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.exc.UnrecognizedPropertyException;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.social.NotAuthorizedException;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.URIBuilder;
@@ -15,15 +16,28 @@ import org.springframework.web.client.ResourceAccessException;
 import com.viadeo.social.api.JobOperations;
 import com.viadeo.social.api.GraphAPIException;
 import com.viadeo.social.api.UserOperations;
-import com.viadeo.social.api.ViadeoApi;
+import com.viadeo.social.api.Viadeo;
 import com.viadeo.social.api.impl.json.ViadeoModule;
 
-public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements
-		ViadeoApi {
+public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 
 	private UserOperations userOperations;
 
 	private JobOperations jobOperations;
+
+	/**
+	 * Create a new instance of ViadeoTemplate. This constructor creates a new
+	 * ViadeoTemplate able to perform unauthenticated operations against
+	 * ViadeoTemplate's Graph API. Some operations do not require OAuth
+	 * authentication. For example, retrieving a specified user's profile does
+	 * not require authentication (although the data returned will be limited to
+	 * what is publicly available). A ViadeoTemplate created with this
+	 * constructor will support those operations. Those operations requiring
+	 * authentication will throw {@link NotAuthorizedException}.
+	 */
+	public ViadeoTemplate() {
+		initialize();
+	}
 
 	/**
 	 * Create a new instance of ViadeoTemplate. This constructor creates the
@@ -35,16 +49,26 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements
 	 */
 	public ViadeoTemplate(String accessToken) {
 		super(accessToken);
-		super.setRequestFactory(ClientHttpRequestFactorySelector
-				.bufferRequests(getRestTemplate().getRequestFactory()));
-		registerViadeoModule();
-
-		// sub-apis
-		userOperations = new UserTemplate(this, getRestTemplate());
-		jobOperations = new JobTemplate(this, getRestTemplate());
+		initialize();
 	}
 
-	private void registerViadeoModule() {
+	private void initialize() {
+		registerViadeoJsonModule();
+		// Wrap the request factory with a BufferingClientHttpRequestFactory so
+		// that the error handler can do repeat reads on the response.getBody()
+		super.setRequestFactory(ClientHttpRequestFactorySelector
+				.bufferRequests(getRestTemplate().getRequestFactory()));
+		initSubApis();
+	}
+
+	private void initSubApis() {
+		// sub-apis
+		userOperations = new UserTemplate(this, getRestTemplate(),
+				isAuthorized());
+		jobOperations = new JobTemplate(this, getRestTemplate(), isAuthorized());
+	}
+
+	private void registerViadeoJsonModule() {
 		List<HttpMessageConverter<?>> converters = getRestTemplate()
 				.getMessageConverters();
 		for (HttpMessageConverter<?> converter : converters) {

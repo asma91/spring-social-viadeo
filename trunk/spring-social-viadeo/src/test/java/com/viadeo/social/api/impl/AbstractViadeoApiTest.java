@@ -8,22 +8,26 @@ import org.springframework.http.MediaType;
 import org.springframework.social.test.client.MockRestServiceServer;
 
 public class AbstractViadeoApiTest {
-		protected static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+	protected static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
-		protected ViadeoTemplate viadeo;
-		protected MockRestServiceServer mockServer;
-		protected HttpHeaders responseHeaders;
+	protected ViadeoTemplate viadeo;
+	protected ViadeoTemplate unauthorizedViadeo;
+	protected MockRestServiceServer mockServer;
+	protected HttpHeaders responseHeaders;
 
-		@Before
-		public void setup() {
-			viadeo = new ViadeoTemplate(ACCESS_TOKEN);
-			mockServer = MockRestServiceServer.createServer(viadeo.getRestTemplate());
-			responseHeaders = new HttpHeaders();
-			responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+	@Before
+	public void setup() {
+		viadeo = new ViadeoTemplate(ACCESS_TOKEN);
+		unauthorizedViadeo = new ViadeoTemplate();
+		mockServer = MockRestServiceServer.createServer(viadeo
+				.getRestTemplate());
+		responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		MockRestServiceServer
+				.createServer(unauthorizedViadeo.getRestTemplate());
+	}
 
-		}
-
-		protected Resource jsonResource(String filename) {
-			return new ClassPathResource(filename + ".json", getClass());
-		}
+	protected Resource jsonResource(String filename) {
+		return new ClassPathResource(filename + ".json", getClass());
+	}
 }

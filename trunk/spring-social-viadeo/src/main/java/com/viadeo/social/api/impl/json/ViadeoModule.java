@@ -5,14 +5,14 @@ import org.codehaus.jackson.map.module.SimpleModule;
 
 import com.viadeo.social.api.Career;
 import com.viadeo.social.api.Comment;
-import com.viadeo.social.api.Comments;
-import com.viadeo.social.api.Contacts;
 import com.viadeo.social.api.Experience;
-import com.viadeo.social.api.Feed;
 import com.viadeo.social.api.Job;
-import com.viadeo.social.api.JobsResult;
 import com.viadeo.social.api.News;
 import com.viadeo.social.api.ViadeoProfile;
+import com.viadeo.social.api.impl.Comments;
+import com.viadeo.social.api.impl.Contacts;
+import com.viadeo.social.api.impl.Feed;
+import com.viadeo.social.api.impl.JobsResult;
 
 /**
  * Jackson module for setting up mixin annotations on Viadeo model types. This

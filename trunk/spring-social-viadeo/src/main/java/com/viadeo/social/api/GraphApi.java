@@ -1,6 +1,5 @@
 package com.viadeo.social.api;
 
-
 /**
  * Defines low-level operations against Viadeo's Graph API
  */

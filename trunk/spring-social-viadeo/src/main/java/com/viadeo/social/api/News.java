@@ -2,7 +2,8 @@ package com.viadeo.social.api;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
+import com.viadeo.social.api.impl.Comments;
 
 /**
  * Model class representing an entry in a feed.

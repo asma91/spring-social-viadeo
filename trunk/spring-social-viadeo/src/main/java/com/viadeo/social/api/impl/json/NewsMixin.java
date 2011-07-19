@@ -6,8 +6,8 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.viadeo.social.api.Comments;
 import com.viadeo.social.api.ViadeoProfile;
+import com.viadeo.social.api.impl.Comments;
 
 /**
  * Annotated mixin to add Jackson annotations to News.

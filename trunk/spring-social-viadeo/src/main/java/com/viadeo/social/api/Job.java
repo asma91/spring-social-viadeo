@@ -3,8 +3,9 @@ package com.viadeo.social.api;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
+/**
+ * Model class representing a job.
+ */
 public class Job implements Serializable {
 
 	/**
@@ -19,7 +20,7 @@ public class Job implements Serializable {
 	private final String link;
 
 	private final Date updatedDate;
-	
+
 	private String title;
 
 	private String description;
