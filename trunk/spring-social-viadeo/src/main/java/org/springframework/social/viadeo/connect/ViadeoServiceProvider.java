@@ -11,8 +11,8 @@ public final class ViadeoServiceProvider extends
 
 	public ViadeoServiceProvider(String clientId, String clientSecret) {
 		super(new OAuth2Template(clientId, clientSecret,
-				"https://graph.facebook.com/oauth/authorize",
-				"https://graph.facebook.com/oauth/access_token"));
+				"https://secure.viadeo.com/oauth-provider/authorize2",
+				"https://secure.viadeo.com/oauth-provider/access_token2"));
 	}
 
 	@Override
