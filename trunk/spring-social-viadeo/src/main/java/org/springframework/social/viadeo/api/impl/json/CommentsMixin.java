@@ -7,7 +7,9 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.social.viadeo.api.Comment;
 
-
+/**
+ * Annotated mixin to add Jackson annotations to Comments.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class CommentsMixin {
 

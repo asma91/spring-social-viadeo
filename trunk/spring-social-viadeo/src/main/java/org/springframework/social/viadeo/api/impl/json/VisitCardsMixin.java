@@ -5,17 +5,15 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.viadeo.api.News;
-
+import org.springframework.social.viadeo.api.ContactCards;
 
 /**
- * Annotated mixin to add Jackson annotations to Feed.
+ * Annotated mixin to add Jackson annotations to VisitCards.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class FeedMixin {
+abstract class VisitCardsMixin {
 
 	@JsonCreator
-	FeedMixin(@JsonProperty("data") List<News> news) {
+	VisitCardsMixin(@JsonProperty("data") List<ContactCards> contactCards) {
 	}
-
 }
