@@ -9,8 +9,8 @@
 	<div class="formInfo">
 		<p>
 			You haven't created any connections with Viadeo yet. Click the button to connect Spring Social Showcase with your Viadeo account. 
-			(You'll be redirected to Twitter where you'll be asked to authorize the connection.)
+			(You'll be redirected to Viadeo where you'll be asked to authorize the connection.)
 		</p>
 	</div>
-	<p><button type="submit"><img src="<c:url value="/resources/social/twitter/connect-with-twitter.png" />"/></button></p>
+	<p><button type="submit"><img src="<c:url value="/resources/social/viadeo/connect-with-viadeo.png" />"/></button></p>
 </form>
