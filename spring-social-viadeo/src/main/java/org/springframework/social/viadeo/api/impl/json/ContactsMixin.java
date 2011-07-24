@@ -9,7 +9,7 @@ import org.springframework.social.viadeo.api.ViadeoProfile;
 
 
 /**
- * Annotated mixin to add Jackson annotations to ViadeoProfile.
+ * Annotated mixin to add Jackson annotations to Contacts.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class ContactsMixin {

@@ -81,4 +81,17 @@ public interface UserOperations {
 	 */
 	List<ViadeoProfile> search(String keyword);
 
+	/**
+	 * Retrieve the visit cards of the current user.
+	 * 
+	 * @return the contact cards.
+	 */
+	List<ContactCards> getContactCards();
+
+	/**
+	 * Retrieve the visit cards of a given user.
+	 * 
+	 * @return the contact cards.
+	 */
+	List<ContactCards> getContactCards(String userId);
 }

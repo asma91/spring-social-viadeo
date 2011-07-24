@@ -1,21 +1,20 @@
 package org.springframework.social.viadeo.api.impl.json;
 
-import java.util.List;
-
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.social.viadeo.api.News;
 
 
 /**
- * Annotated mixin to add Jackson annotations to Feed.
+ * Annotated mixin to add Jackson annotations to Phone.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class FeedMixin {
+abstract class PhoneMixin {
 
 	@JsonCreator
-	FeedMixin(@JsonProperty("data") List<News> news) {
+	PhoneMixin(@JsonProperty("type") String type,
+			@JsonProperty("country") String country,
+			@JsonProperty("dialing") String dialing,
+			@JsonProperty("number") String number) {
 	}
-
 }

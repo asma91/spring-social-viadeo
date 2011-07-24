@@ -2,10 +2,10 @@ package org.springframework.social.viadeo.api.impl;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.social.support.URIBuilder;
 import org.springframework.social.viadeo.api.Career;
+import org.springframework.social.viadeo.api.ContactCards;
 import org.springframework.social.viadeo.api.Experience;
 import org.springframework.social.viadeo.api.GraphApi;
 import org.springframework.social.viadeo.api.News;
@@ -99,5 +99,16 @@ public class UserTemplate extends AbstractViadeoOperations implements
 				.queryParam(USER_DETAIL, FULL).queryParam("keyword", keyword)
 				.queryParam("limit", "50").build();
 		return restTemplate.getForObject(uri, Contacts.class).getContacts();
+	}
+
+	public List<ContactCards> getContactCards(String userId) {
+		requireAuthorization();
+		URI uri = URIBuilder.fromUri(GraphApi.GRAPH_API_URL + userId+ "/contact_cards")
+				.build();
+		return restTemplate.getForObject(uri, VisitCards.class).getContactCards();
+	}
+	
+	public List<ContactCards> getContactCards() {
+		return getContactCards(ME);
 	}
 }

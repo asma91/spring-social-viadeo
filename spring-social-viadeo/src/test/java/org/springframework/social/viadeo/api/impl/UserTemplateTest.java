@@ -2,6 +2,7 @@ package org.springframework.social.viadeo.api.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.social.test.client.RequestMatchers.body;
@@ -12,11 +13,12 @@ import static org.springframework.social.test.client.ResponseCreators.withRespon
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.social.ApiException;
 import org.springframework.social.NotAuthorizedException;
 import org.springframework.social.support.URIBuilder;
+import org.springframework.social.viadeo.api.ContactCards;
 import org.springframework.social.viadeo.api.Experience;
 import org.springframework.social.viadeo.api.News;
+import org.springframework.social.viadeo.api.Phone;
 import org.springframework.social.viadeo.api.ViadeoProfile;
 
 public class UserTemplateTest extends AbstractViadeoApiTest {
@@ -210,42 +212,134 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		viadeo
 				.userOperations()
 				.updateStatus(
-						"Veeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
-						" looooooooooooooooooooooooooooonnnnnnnnnnnnngggggg " +
-						"staaaaaaaaatuuuuuuuuuuuuuuuuuusssssssssssss");
+						"Veeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+								+ " looooooooooooooooooooooooooooonnnnnnnnnnnnngggggg "
+								+ "staaaaaaaaatuuuuuuuuuuuuuuuuuusssssssssssss");
 	}
-	
+
 	@Test
 	public void updateStatus() {
-		mockServer
-				.expect(
-						requestTo(URIBuilder
-								.fromUri(
-										"https://api.viadeo.com/status")
-								.build())).andExpect(method(POST)).andExpect(body("message=Mon+nouveau+status"))
-								.andRespond(withResponse("STATUS SENT", responseHeaders));
+		mockServer.expect(
+				requestTo(URIBuilder.fromUri("https://api.viadeo.com/status")
+						.build())).andExpect(method(POST)).andExpect(
+				body("message=Mon+nouveau+status")).andRespond(
+				withResponse("STATUS SENT", responseHeaders));
 
 		viadeo.userOperations().updateStatus("Mon nouveau status");
 		mockServer.verify();
 	}
-	
+
 	@Test(expected = NotAuthorizedException.class)
 	public void search_unauthorized() {
 		unauthorizedViadeo.userOperations().search("Vincent DEVILLERS");
 	}
-	
+
 	@Test
 	public void search() {
-		mockServer.expect(
-				requestTo(URIBuilder.fromUri(
-						"https://api.viadeo.com/search/users?user_detail=full&keyword=Vincent+DEVILLERS&limit=50")
-						.build())).andExpect(method(GET)).andRespond(
-				withResponse(jsonResource("testdata/search-contacts"),
-						responseHeaders));
+		mockServer
+				.expect(
+						requestTo(URIBuilder
+								.fromUri(
+										"https://api.viadeo.com/search/users?user_detail=full&keyword=Vincent+DEVILLERS&limit=50")
+								.build())).andExpect(method(GET)).andRespond(
+						withResponse(jsonResource("testdata/search-contacts"),
+								responseHeaders));
 
-		List<ViadeoProfile> contacts = viadeo.userOperations().search("Vincent DEVILLERS");
+		List<ViadeoProfile> contacts = viadeo.userOperations().search(
+				"Vincent DEVILLERS");
 		assertNotNull(contacts);
 		assertEquals(50, contacts.size());
+		mockServer.verify();
+	}
+
+	@Test(expected = NotAuthorizedException.class)
+	public void getCurrentContactCard_unauthorized() {
+		unauthorizedViadeo.userOperations().getContactCards();
+	}
+
+	@Test
+	public void getCurrentContactCards() {
+		mockServer.expect(
+				requestTo(URIBuilder.fromUri(
+						"https://api.viadeo.com/me/contact_cards").build()))
+				.andExpect(method(GET)).andRespond(
+						withResponse(
+								jsonResource("testdata/contact-cards-for-me"),
+								responseHeaders));
+
+		List<ContactCards> contactCards = viadeo.userOperations()
+				.getContactCards();
+		assertNotNull(contactCards);
+		assertEquals(2, contactCards.size());
+
+		ContactCards cardBusiness = contactCards.get(0);
+		assertEquals("ticctDfItsvkatamzkruyuxstnwOOIowEcyVghfhbluVfsElvmdk",
+				cardBusiness.getId());
+		assertEquals("BUSINESS", cardBusiness.getKind());
+		assertEquals("Garches", cardBusiness.getCity());
+		assertEquals("92", cardBusiness.getPostcode());
+		assertEquals("France", cardBusiness.getCountry());
+		assertTrue(cardBusiness.getEmails().contains(
+				"vincentdevillers@hotmail.fr"));
+		assertTrue(cardBusiness.getPhones().contains(
+				new Phone("MOBILE", "France", "+33", "0615053430")));
+
+		ContactCards cardPerso = contactCards.get(1);
+		assertEquals("IqsmeqAbllyupOxwpkdkkdVtAndoxjcrntDhwvvmrInbmOVmIryk",
+				cardPerso.getId());
+		assertEquals("PERSO", cardPerso.getKind());
+		assertEquals("Garches", cardPerso.getCity());
+		assertEquals("92", cardPerso.getPostcode());
+		assertEquals("France", cardPerso.getCountry());
+		assertEquals("Ile-de-France", cardPerso.getRegion());
+		assertTrue(cardPerso.getEmails()
+				.contains("vincentdevillers@hotmail.fr"));
+		assertTrue(cardPerso.getPhones().contains(
+				new Phone("MOBILE", "France", "+33", "0615053430")));
+
+		mockServer.verify();
+	}
+	
+	@Test
+	public void getContactCardsForId() {
+		mockServer.expect(
+				requestTo(URIBuilder.fromUri(
+						"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/contact_cards").build()))
+				.andExpect(method(GET)).andRespond(
+						withResponse(
+								jsonResource("testdata/contact-cards-for-id"),
+								responseHeaders));
+
+		List<ContactCards> contactCards = viadeo.userOperations()
+				.getContactCards("EjtftevbyiugaIfDfVizDgymxg");
+		assertNotNull(contactCards);
+		assertEquals(2, contactCards.size());
+
+		ContactCards cardBusiness = contactCards.get(0);
+		assertEquals("ticctDfItsvkatamzkruyuxstnwOOIowEcyVghfhbluVfsElvmdk",
+				cardBusiness.getId());
+		assertEquals("BUSINESS", cardBusiness.getKind());
+		assertEquals("Garches", cardBusiness.getCity());
+		assertEquals("92", cardBusiness.getPostcode());
+		assertEquals("France", cardBusiness.getCountry());
+		assertTrue(cardBusiness.getEmails().contains(
+				"vincentdevillers@hotmail.fr"));
+		assertTrue(cardBusiness.getPhones().contains(
+				new Phone("MOBILE", "France", "+33", "0615053430")));
+
+		ContactCards cardPerso = contactCards.get(1);
+		assertEquals("IqsmeqAbllyupOxwpkdkkdVtAndoxjcrntDhwvvmrInbmOVmIryk",
+				cardPerso.getId());
+		assertEquals("PERSO", cardPerso.getKind());
+		assertEquals("Garches", cardPerso.getCity());
+		assertEquals("92", cardPerso.getPostcode());
+		assertEquals("France", cardPerso.getCountry());
+		assertEquals("Ile-de-France", cardPerso.getRegion());
+		assertTrue(cardPerso.getEmails()
+				.contains("vincentdevillers@hotmail.fr"));
+		assertTrue(cardPerso.getPhones().contains(
+				new Phone("MOBILE", "France", "+33", "0615053430")));
+
 		mockServer.verify();
 	}
 }
