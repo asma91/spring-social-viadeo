@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.social.test.client.MockRestServiceServer;
 import org.springframework.social.viadeo.api.impl.ViadeoTemplate;
 
-public class AbstractViadeoApiTest {
+public abstract class AbstractViadeoApiTest {
 	protected static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
 	protected ViadeoTemplate viadeo;
