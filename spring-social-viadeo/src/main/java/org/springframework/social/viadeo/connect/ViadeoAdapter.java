@@ -1,43 +1,43 @@
 package org.springframework.social.viadeo.connect;
 
+import org.springframework.social.ApiException;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
 import org.springframework.social.viadeo.api.Viadeo;
 import org.springframework.social.viadeo.api.ViadeoProfile;
-import org.springframework.web.client.HttpClientErrorException;
 
+public class ViadeoAdapter implements ApiAdapter<Viadeo> {
 
-public class ViadeoApiAdapter implements ApiAdapter<Viadeo> {
-
+	@Override
 	public boolean test(Viadeo viadeo) {
 		try {
 			viadeo.userOperations().getUserProfile();
 			return true;
-		} catch (HttpClientErrorException e) {
+		} catch (ApiException e) {
 			return false;
 		}
 	}
 
+	@Override
 	public void setConnectionValues(Viadeo viadeo, ConnectionValues values) {
 		ViadeoProfile profile = viadeo.userOperations().getUserProfile();
 		values.setProviderUserId(profile.getId());
-		values.setDisplayName(profile.getFirstName() + " "
-				+ profile.getLastName());
+		values.setDisplayName(profile.getFirstName() + " " + profile.getLastName());
 		values.setImageUrl(profile.getLargeImageUrl());
 		values.setProfileUrl(profile.getProfileUrl());
 	}
 
+	@Override
 	public UserProfile fetchUserProfile(Viadeo viadeo) {
 		ViadeoProfile profile = viadeo.userOperations().getUserProfile();
-		return new UserProfileBuilder().setName(
-				profile.getFirstName() + " " + profile.getLastName())
-				.setFirstName(profile.getFirstName()).setLastName(
-						profile.getLastName()).setUsername(
-						profile.getNickName()).build();
+		return new UserProfileBuilder().setName(profile.getFirstName() + " " + profile.getLastName())
+				.setFirstName(profile.getFirstName()).setLastName(profile.getLastName()).setUsername(profile.getNickName())
+				.build();
 	}
 
+	@Override
 	public void updateStatus(Viadeo viadeo, String message) {
 		// not supported yet
 	}
