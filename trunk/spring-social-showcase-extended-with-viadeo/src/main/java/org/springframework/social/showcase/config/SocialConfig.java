@@ -38,6 +38,7 @@ import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.showcase.ExtendedConnectController;
 import org.springframework.social.showcase.facebook.PostToWallAfterConnectInterceptor;
 import org.springframework.social.showcase.signin.SimpleSignInAdapter;
 import org.springframework.social.showcase.twitter.TweetAfterConnectInterceptor;
@@ -113,7 +114,8 @@ public class SocialConfig {
 	
 	@Bean
 	public ConnectController connectController() {
-		ConnectController connectController = new ConnectController(connectionFactoryLocator(), connectionRepository());
+		ConnectController connectController = new ExtendedConnectController(connectionFactoryLocator(),
+				connectionRepository());
 		connectController.addInterceptor(new PostToWallAfterConnectInterceptor());
 		connectController.addInterceptor(new TweetAfterConnectInterceptor());
 		return connectController;

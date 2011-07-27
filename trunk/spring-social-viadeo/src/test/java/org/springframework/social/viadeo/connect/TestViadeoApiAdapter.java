@@ -10,7 +10,7 @@ import org.springframework.social.connect.UserProfile;
 import org.springframework.social.viadeo.api.UserOperations;
 import org.springframework.social.viadeo.api.Viadeo;
 import org.springframework.social.viadeo.api.ViadeoProfile;
-import org.springframework.social.viadeo.connect.ViadeoApiAdapter;
+import org.springframework.social.viadeo.connect.ViadeoAdapter;
 import org.unitils.UnitilsJUnit4;
 import org.unitils.easymock.EasyMockUnitils;
 import org.unitils.easymock.annotation.RegularMock;
@@ -18,7 +18,7 @@ import org.unitils.easymock.annotation.RegularMock;
 
 public class TestViadeoApiAdapter extends UnitilsJUnit4{
 
-		private ViadeoApiAdapter apiAdapter = new ViadeoApiAdapter();
+		private ViadeoAdapter apiAdapter = new ViadeoAdapter();
 
 		@RegularMock
 		private Viadeo viadeoApi;

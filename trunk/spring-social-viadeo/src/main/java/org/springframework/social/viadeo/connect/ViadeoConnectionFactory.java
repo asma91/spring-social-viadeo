@@ -7,7 +7,7 @@ import org.springframework.social.viadeo.api.Viadeo;
 public class ViadeoConnectionFactory extends OAuth2ConnectionFactory<Viadeo> {
 
 	public ViadeoConnectionFactory(String clientId, String clientSecret) {
-		super("viadeo", new ViadeoServiceProvider(clientId, clientSecret), new ViadeoApiAdapter());
+		super("viadeo", new ViadeoServiceProvider(clientId, clientSecret), new ViadeoAdapter());
 	}
 	
 }
