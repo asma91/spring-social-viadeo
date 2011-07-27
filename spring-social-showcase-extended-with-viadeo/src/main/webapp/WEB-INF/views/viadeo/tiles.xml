@@ -3,11 +3,11 @@
 
 <tiles-definitions>
 
-	<definition name="facebook/profile" extends="page">
+	<definition name="viadeo/profile" extends="page">
 		<put-attribute name="content" value="/WEB-INF/views/viadeo/profile.jsp" />
 	</definition>
 
-	<definition name="facebook/feed" extends="page">
+	<definition name="viadeo/feed" extends="page">
 		<put-attribute name="content" value="/WEB-INF/views/viadeo/feed.jsp" />
 	</definition>
 
