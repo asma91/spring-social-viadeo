@@ -51,7 +51,7 @@ abstract class AbstractViadeoOperations {
 
 	public <T> T get(String objectId, Class<T> type) {
 		try {
-			URI uri = buildUri(GRAPH_API_URL + objectId).build();
+			URI uri = buildUri(objectId).build();
 			return get(uri, type);
 		} catch (ResourceAccessException e) {
 			// Handle the special case where an unknown alias results in an
