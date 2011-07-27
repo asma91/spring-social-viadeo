@@ -38,7 +38,7 @@ public class JobTemplateTest extends AbstractViadeoApiTest {
 
 		assertEquals("hEVdvbpdwpmtumjAmIhnhuzbhA", job.getId());
 		assertEquals("Graduate", job.getExperience());
-		assertEquals("Informatique  -  Rï¿½seaux - Tï¿½lï¿½coms - Internet", job.getCategory());
+		assertEquals("Informatique  -  Réseaux - Télécoms - Internet", job.getCategory());
 		assertEquals("DEVELOPPEURS H/F", job.getTitle());
 		assertEquals("", job.getName());
 		mockServer.verify();

@@ -25,11 +25,14 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 	private final String accessToken;
 
 	/**
-	 * Create a new instance of ViadeoTemplate. This constructor creates a new ViadeoTemplate able to perform
-	 * unauthenticated operations against ViadeoTemplate's Graph API. Some operations do not require OAuth authentication.
-	 * For example, retrieving a specified user's profile does not require authentication (although the data returned will
-	 * be limited to what is publicly available). A ViadeoTemplate created with this constructor will support those
-	 * operations. Those operations requiring authentication will throw {@link NotAuthorizedException}.
+	 * Create a new instance of ViadeoTemplate. This constructor creates a new
+	 * ViadeoTemplate able to perform unauthenticated operations against
+	 * ViadeoTemplate's Graph API. Some operations do not require OAuth
+	 * authentication. For example, retrieving a specified user's profile does
+	 * not require authentication (although the data returned will be limited to
+	 * what is publicly available). A ViadeoTemplate created with this
+	 * constructor will support those operations. Those operations requiring
+	 * authentication will throw {@link NotAuthorizedException}.
 	 */
 	public ViadeoTemplate() {
 		this(null);
@@ -37,9 +40,12 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 	}
 
 	/**
-	 * Create a new instance of ViadeoTemplate. This constructor creates the ViadeoTemplate using a given access token.
+	 * Create a new instance of ViadeoTemplate. This constructor creates the
+	 * ViadeoTemplate using a given access token.
 	 * 
-	 * @param accessToken An access token given by Viadeo after a successful OAuth 2 authentication.
+	 * @param accessToken
+	 *            An access token given by Viadeo after a successful OAuth 2
+	 *            authentication.
 	 */
 	public ViadeoTemplate(String accessToken) {
 		super(accessToken);
@@ -52,7 +58,8 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 		registerViadeoJsonModule();
 		// Wrap the request factory with a BufferingClientHttpRequestFactory so
 		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
+		super.setRequestFactory(ClientHttpRequestFactorySelector
+				.bufferRequests(getRestTemplate().getRequestFactory()));
 		initSubApis();
 	}
 
@@ -69,7 +76,8 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 		List<MediaType> supportedMediaTypes = new ArrayList<MediaType>(1);
 		supportedMediaTypes.add(MediaType.ALL);
 
-		List<HttpMessageConverter<?>> converters = getRestTemplate().getMessageConverters();
+		List<HttpMessageConverter<?>> converters = getRestTemplate()
+				.getMessageConverters();
 		for (HttpMessageConverter<?> converter : converters) {
 			if (converter instanceof MappingJacksonHttpMessageConverter) {
 				MappingJacksonHttpMessageConverter jsonConverter = (MappingJacksonHttpMessageConverter) converter;
@@ -80,16 +88,14 @@ public class ViadeoTemplate extends AbstractOAuth2ApiBinding implements Viadeo {
 	}
 
 	public URIBuilder withAccessToken(String uri) {
-		return (accessToken == null) ? URIBuilder.fromUri(uri) : URIBuilder.fromUri(uri).queryParam("access_token",
-				accessToken);
+		return (accessToken == null) ? URIBuilder.fromUri(uri) : URIBuilder
+				.fromUri(uri).queryParam("access_token", accessToken);
 	}
 
-	@Override
 	public UserOperations userOperations() {
 		return userOperations;
 	}
 
-	@Override
 	public JobOperations jobOperations() {
 		return jobOperations;
 	}
