@@ -9,9 +9,9 @@
 	<dt>Viadeo ID:</dt>
 	<dd><c:out value="${profile.id}"/></dd>
 	<dt>Name:</dt>
-	<dd><c:out value="${profile.name}"/></dd>
-	<dt>Email:</dt>
-	<dd><c:out value="${email}"/></dd>
+	<dd><c:out value="${profile.firstName} ${profile.lastName}"/></dd>
+	<dt>headline:</dt>
+	<dd><c:out value="${profile.headline}"/></dd>
 </dl>
 
 <c:url value="/connect/viadeo" var="disconnectUrl"/>

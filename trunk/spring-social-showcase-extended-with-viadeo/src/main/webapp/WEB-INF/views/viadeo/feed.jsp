@@ -9,8 +9,8 @@
 <ul class="feedList">
 <c:forEach items="${feed}" var="post">
 	<li class="post">
-		<p><c:if test="${not empty post.picture}"><img src="<c:out value="${post.picture}"/>" align="top"/></c:if>
-		<c:out value="${post.message}" /> - <c:out value="${post.name}" /></p>
+		<p><c:if test="${not empty post.from.largeImageUrl}"><img src="<c:out value="${post.from.profileUrl}"/>" align="top"/></c:if>
+		<c:out value="${post.message}" /> - <c:out value="${post.from.firstName} ${post.from.lastName}" /></p>
 	</li>
 </c:forEach>
 </ul>
