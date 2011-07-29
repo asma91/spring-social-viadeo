@@ -36,8 +36,8 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertEquals("vincent.devillers1", profile.getNickName());
 		assertEquals("http://www.viadeo.com/profile/0021g557w9j1iw4m", profile.getProfileUrl());
 		assertEquals(Long.valueOf(146), profile.getContactCount());
-		assertEquals("Karaté (2ème Dan), piano, natation, apnée libre, robotique", profile.getInterests());
-		assertEquals("Ingénieur d'études et de développement, Viadeo", profile.getHeadline());
+		assertEquals("Karatï¿½ (2ï¿½me Dan), piano, natation, apnï¿½e libre, robotique", profile.getInterests());
+		assertEquals("Ingï¿½nieur d'ï¿½tudes et de dï¿½veloppement, Viadeo", profile.getHeadline());
 		mockServer.verify();
 	}
 
@@ -59,8 +59,8 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertEquals("vincent.devillers1", profile.getNickName());
 		assertEquals("http://www.viadeo.com/profile/0021g557w9j1iw4m", profile.getProfileUrl());
 		assertEquals(Long.valueOf(146), profile.getContactCount());
-		assertEquals("Karaté (2ème Dan), piano, natation, apnée libre, robotique", profile.getInterests());
-		assertEquals("Ingénieur d'études et de développement, Viadeo", profile.getHeadline());
+		assertEquals("Karatï¿½ (2ï¿½me Dan), piano, natation, apnï¿½e libre, robotique", profile.getInterests());
+		assertEquals("Ingï¿½nieur d'ï¿½tudes et de dï¿½veloppement, Viadeo", profile.getHeadline());
 		mockServer.verify();
 	}
 
@@ -75,7 +75,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 
 		List<ViadeoProfile> contacts = viadeo.userOperations().getContacts();
 		assertNotNull(contacts);
-		assertEquals(10, contacts.size());
+		assertEquals(20, contacts.size());
 		mockServer.verify();
 	}
 
@@ -96,7 +96,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 
 		List<ViadeoProfile> contacts = viadeo.userOperations().getContacts("EjtftevbyiugaIfDfVizDgymxg");
 		assertNotNull(contacts);
-		assertEquals(10, contacts.size());
+		assertEquals(20, contacts.size());
 		mockServer.verify();
 	}
 
