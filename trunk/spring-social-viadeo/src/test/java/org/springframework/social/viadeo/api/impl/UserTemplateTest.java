@@ -69,7 +69,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		mockServer
 				.expect(
 						requestTo(URIBuilder.fromUri(
-								"https://api.viadeo.com/me/contacts?access_token=ACCESS_TOKEN&user_detail=full").build()))
+								"https://api.viadeo.com/me/contacts?access_token=ACCESS_TOKEN&user_detail=full&limit=20").build()))
 				.andExpect(method(GET))
 				.andRespond(withResponse(jsonResource("testdata/full-contacts-for-me"), responseHeaders));
 
@@ -90,7 +90,7 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 				.expect(
 						requestTo(URIBuilder
 								.fromUri(
-										"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/contacts?access_token=ACCESS_TOKEN&user_detail=full")
+										"https://api.viadeo.com/EjtftevbyiugaIfDfVizDgymxg/contacts?access_token=ACCESS_TOKEN&user_detail=full&limit=20")
 								.build())).andExpect(method(GET))
 				.andRespond(withResponse(jsonResource("testdata/full-contacts-for-id"), responseHeaders));
 
