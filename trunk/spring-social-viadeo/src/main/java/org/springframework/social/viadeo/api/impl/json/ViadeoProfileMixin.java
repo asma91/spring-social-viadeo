@@ -28,4 +28,7 @@ abstract class ViadeoProfileMixin {
 	
 	@JsonProperty("interests")
 	String interests;
+
+	@JsonProperty("picture_small")
+	String smallImageUrl;
 }
