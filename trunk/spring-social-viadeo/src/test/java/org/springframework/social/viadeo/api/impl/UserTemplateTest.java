@@ -36,8 +36,8 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertEquals("vincent.devillers1", profile.getNickName());
 		assertEquals("http://www.viadeo.com/profile/0021g557w9j1iw4m", profile.getProfileUrl());
 		assertEquals(Long.valueOf(146), profile.getContactCount());
-		assertEquals("Karat� (2�me Dan), piano, natation, apn�e libre, robotique", profile.getInterests());
-		assertEquals("Ing�nieur d'�tudes et de d�veloppement, Viadeo", profile.getHeadline());
+		assertEquals("Karate (2eme Dan), piano, natation, apnee libre, robotique", profile.getInterests());
+		assertEquals("Ingenieur d'etudes et de developpement, Viadeo", profile.getHeadline());
 		mockServer.verify();
 	}
 
@@ -59,8 +59,8 @@ public class UserTemplateTest extends AbstractViadeoApiTest {
 		assertEquals("vincent.devillers1", profile.getNickName());
 		assertEquals("http://www.viadeo.com/profile/0021g557w9j1iw4m", profile.getProfileUrl());
 		assertEquals(Long.valueOf(146), profile.getContactCount());
-		assertEquals("Karat� (2�me Dan), piano, natation, apn�e libre, robotique", profile.getInterests());
-		assertEquals("Ing�nieur d'�tudes et de d�veloppement, Viadeo", profile.getHeadline());
+		assertEquals("Karate (2eme Dan), piano, natation, apnee libre, robotique", profile.getInterests());
+		assertEquals("Ingenieur d'etudes et de developpement, Viadeo", profile.getHeadline());
 		mockServer.verify();
 	}
 
