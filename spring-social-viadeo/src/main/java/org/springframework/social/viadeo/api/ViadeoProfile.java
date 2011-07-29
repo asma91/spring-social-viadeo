@@ -27,6 +27,8 @@ public class ViadeoProfile implements Serializable {
 
 	private final String largeImageUrl;
 
+	private String smallImageUrl;
+
 	private String headline;
 
 	private String interests;
@@ -106,4 +108,11 @@ public class ViadeoProfile implements Serializable {
 		this.contactCount = contactCount;
 	}
 
+	public String getSmallImageUrl() {
+		return smallImageUrl;
+	}
+
+	public void setSmallImageUrl(String smallImageUrl) {
+		this.smallImageUrl = smallImageUrl;
+	}
 }
