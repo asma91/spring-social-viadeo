@@ -1,0 +1,1 @@
+Project move on github https://github.com/Treydone/spring-social-viadeo
